@@ -1,20 +1,17 @@
-import select.*
-
 fun main() {
-    val query =
+    println(
         select {
             col("name").alias("name")
-            col("email").alias("email")
+            avg("salary").alias("average_salary")
+            count("*").alias("total")
         } from {
-            table = "users"
+            table("users")
         } where {
             col("name")
         } grouping {
             col("name")
-            col("email")
         } ordering {
             col("name").desc()
-            col("email")
         }
-    println(query)
+    )
 }

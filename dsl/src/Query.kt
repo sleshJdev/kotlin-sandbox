@@ -1,12 +1,5 @@
-package select
-
-import grouping.Grouping
-import having.Having
-import ordering.Ordering
-import where.Where
-
 class Query(
-    val select: Select
+    val selection: Selection
     , val from: From
 ) {
     var where = Where()
@@ -14,20 +7,16 @@ class Query(
     var having = Having()
     var ordering = Ordering()
 
-    init {
-        select.grouping = grouping
-    }
-
-    override fun toString(): String = listOf(
-        select,
-        from,
-        where,
-        grouping,
-        having,
-        ordering
-    ).map { it.toString() }
-        .filter { it.isNotBlank() }
-        .joinToString("\n")
+    override fun toString(): String =
+        listOf(
+            selection.sql,
+            from.sql,
+            where.sql,
+            grouping.sql,
+            having.sql,
+            ordering.sql
+        ).filter { it.isNotBlank() }
+            .joinToString("\n")
 }
 
 infix fun Query.where(init: Where.() -> Unit): Query {
