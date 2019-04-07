@@ -1,11 +1,11 @@
 class GroupBy(
     private val expr: Expression
-) : Expression() {
+) : Expression {
     override val sql
         get() = expr.sql
 }
 
-class Grouping : Expression() {
+class Grouping : Expression {
     private val grouping = mutableListOf<Expression>()
 
     fun col(name: String): GroupBy {

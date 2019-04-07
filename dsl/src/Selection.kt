@@ -1,4 +1,4 @@
-abstract class Alias : Expression() {
+abstract class Alias : Expression {
     var alias: String? = null
     fun alias(alias: String?) {
         this.alias = alias
@@ -26,7 +26,7 @@ class Sum(expr: Expression) : Alias() {
     override val name: String = "sum(${expr.sql})"
 }
 
-class Selection : Expression() {
+class Selection : Expression {
     private val selection = mutableListOf<Expression>()
 
     fun col(name: String): Alias {
