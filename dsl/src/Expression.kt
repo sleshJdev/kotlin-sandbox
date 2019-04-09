@@ -1,3 +1,3 @@
-interface Expression {
-    val sql: String
+abstract class Expression {
+    abstract val sql: String
 }

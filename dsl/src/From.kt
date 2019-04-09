@@ -2,7 +2,7 @@ class Table(
     val name: String
 )
 
-class From : Expression {
+class From : Expression() {
     private var table: Table? = null
 
     fun table(name: String, init: (Table.() -> Unit)? = null) {

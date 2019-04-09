@@ -1,4 +1,4 @@
-class Having : Expression {
+class Having : Expression() {
     private val columns = mutableListOf<Expression>()
 
     fun col(name: String): Column {

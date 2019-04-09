@@ -1,6 +1,6 @@
 class OrderBy(
     val expr: Expression
-) : Expression {
+) : Expression() {
     private var asc: Boolean = true
 
     fun asc() {
@@ -15,7 +15,7 @@ class OrderBy(
         get() = "${expr.sql} ${if (asc) "asc" else "desc"}"
 }
 
-class Ordering : Expression {
+class Ordering : Expression() {
     private val ordering = mutableListOf<Expression>()
 
     fun col(name: String): OrderBy {

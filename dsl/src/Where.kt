@@ -1,18 +1,30 @@
-interface Predicate {
-    fun resolve(): Boolean
-}
+class And (
+    val a: Predicate,
+    val b: Predicate
+)
 
-interface PredicateExpression
-    : Predicate, Expression {
-}
+class Predicate(
+    val expr: Expression
+) : Expression() {
 
+    override val sql
+        get() = expr.sql
+}
 
 infix fun Predicate.and(predicate: Predicate) {}
 
-class Where : Expression {
+class Where : Expression() {
     private val predicates = mutableListOf<Predicate>()
 
+    fun predicate(name: String): Predicate {
+        val predicate = Predicate(Column(name))
+        predicates += predicate
+        return predicate
+    }
 
+    fun and(init: And.() -> Unit) {
+
+    }
 
     override val sql
         get() = if (predicates.isNotEmpty()) "where ${predicates.map { it.sql }.joinToString(" ")}" else ""
