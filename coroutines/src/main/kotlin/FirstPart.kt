@@ -1,10 +1,6 @@
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
-val handler = CoroutineExceptionHandler { _, exception ->
-    println("Caught $exception")
-}
-
 suspend fun getCounters1(): List<Int> {
     return withContext(Dispatchers.Default) {
         (1..3).map { id ->
@@ -16,7 +12,7 @@ suspend fun getCounters1(): List<Int> {
 }
 
 suspend fun getCounters2(): List<Int> {
-    return withContext(Dispatchers.Default + handler) {
+    return withContext(Dispatchers.Default) {
         (1..3).map { id ->
             async {
                 withTimeout(5000) {
@@ -28,7 +24,7 @@ suspend fun getCounters2(): List<Int> {
 }
 
 suspend fun getCounters3(): List<Int> {
-    return withContext(Dispatchers.Default + handler) {
+    return withContext(Dispatchers.Default) {
         (1..3).map { id ->
             async {
                 try {
@@ -43,7 +39,7 @@ suspend fun getCounters3(): List<Int> {
 }
 
 suspend fun getCounters4(): List<Int> {
-    return withContext(Dispatchers.Default + handler) {
+    return withContext(Dispatchers.Default) {
         (1..3).map { id ->
             async {
                 withTimeoutOrNull(5000) {
@@ -69,20 +65,28 @@ fun main() = runBlocking {
     println("1. Отменять все задания если одно из заданий упало:")
     try {
         println(getCounters1())
-    } catch (e: Exception) { println(e.message) }
+    } catch (e: Exception) {
+        println(e.message)
+    }
 
     println("2. Отменять все задания если одно из заданий выполняется дольше 5000мс")
     try {
         println(getCounters2())
-    } catch (e: Exception) { println(e.message) }
+    } catch (e: Exception) {
+        println(e.message)
+    }
 
     println("3. Если задание упало - возвращать дефолтовое значение (например 0)")
     try {
         println(getCounters3())
-    } catch (e: Exception) { println(e.message) }
+    } catch (e: Exception) {
+        println(e.message)
+    }
 
     println("4. Если задание выполняется больше 5000мс - возвращать дефолтовое значение")
     try {
         println(getCounters4())
-    } catch (e: Exception) { println(e.message) }
+    } catch (e: Exception) {
+        println(e.message)
+    }
 }
