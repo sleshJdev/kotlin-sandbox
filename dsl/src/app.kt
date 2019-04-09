@@ -7,6 +7,8 @@ fun main() {
         } from {
             table("users")
         } where {
+            col<String>("name") eq "Vasya"
+            col<Double>("salary") eq 100.0
         } grouping {
             col("name")
         } ordering {
