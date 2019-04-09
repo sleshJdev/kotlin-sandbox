@@ -7,7 +7,6 @@ fun main() {
         } from {
             table("users")
         } where {
-//            col("name")
         } grouping {
             col("name")
         } ordering {
